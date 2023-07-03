@@ -1,0 +1,16 @@
+<html>
+    <head> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <script type="module" src="functions.js">
+        </script> 
+    </head> 
+    <body> 
+        <div id="hello"></div>
+        <div class="control">
+            <label class="label">Choose IdP:</label>
+            <input class="input" type="text" placeholder="IdP" id="selectedIdP" value="https://solidweb.me" />
+            <button class="button" onClick="encrypt()">🔐 Log in</button>
+            <h2 id="myWebID"></h2>
+        </div>
+    </body>
+</html>
