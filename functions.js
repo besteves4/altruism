@@ -1,5 +1,5 @@
 //import { login, getDefaultSession, handleIncomingRedirect } from '@inrupt/solid-client-authn-browser'
-var solidClientAuthnBrowser = require("@inrupt/solid-client-authn-browser")
+import { login, getDefaultSession, handleIncomingRedirect } from 'https://cdn.skypack.dev/@inrupt/solid-client-authn-browser'
 
 window.onload=function(){
     var example = document.getElementById('hello');
@@ -16,7 +16,7 @@ window.encrypt = () => {
 
 function loginToSelectedIdP() {
     const idp = document.getElementById("selectedIdP").value;
-    return solidClientAuthnBrowser.login({
+    return login({
         oidcIssuer: idp,
         redirectUrl: new URL("/", window.location.href).toString(),
         clientName: "My application"
@@ -25,9 +25,9 @@ function loginToSelectedIdP() {
 
 // When redirected after login, finish the process by retrieving session information.
 async function handleRedirectAfterLogin() {
-    await solidClientAuthnBrowser.handleIncomingRedirect(); // no-op if not part of login redirect
+    await handleIncomingRedirect(); // no-op if not part of login redirect
   
-    const session = solidClientAuthnBrowser.getDefaultSession();
+    const session = getDefaultSession();
     if (session.info.isLoggedIn) {
       // Update the page with the status.
       document.getElementById("myWebID").value = session.info.webId;

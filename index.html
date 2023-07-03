@@ -1,16 +1,78 @@
 <html>
     <head> 
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
-        <script type="module" src="functions.js">
-        </script> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            /*=======( Generic Styling  )=============================================*/
+            body {
+                background: #ffd;
+            }
+        
+            /*=======( Specific Styling )=============================================*/
+            .pod-navigator {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                margin: 1em;
+            }
+        
+            .session-info {
+                background: white;
+                border: 1px solid lightgray;
+                color: #333;
+                margin-top: 1em;
+                min-width: calc(50% - 3em);
+                padding: 1em;
+                width: 100%;
+            }
+        
+        </style>
+        <script src="https://cdn.simplyedit.io/1/simply-edit.js" data-simply-storage="none"></script>
+        <script src="https://unpkg.com/simplyview/dist/simply.everything.js"></script>
+        <script type="module">
+            import { getDefaultSession } from 'https://cdn.skypack.dev/@inrupt/solid-client-authn-browser'
+
+  const solidSession = getDefaultSession()
+
+  const solidApp = simply.app({
+    actions: {
+      connect: issuer => {
+        if (solidSession.info && solidSession.info.isLoggedIn === false) {
+          return solidSession.login({
+            oidcIssuer: issuer,
+            redirectUrl: window.location.href,
+          })
+        }
+
+        return solidSession.info
+      },
+    },
+    commands: {
+      connect: (form, values) => solidApp.actions.connect(values.issuer),
+    },
+    view: {
+      session: solidSession,
+    },
+  })
+
+  solidSession.handleIncomingRedirect({url: window.location.href, restorePreviousSession: true})
+          </script> 
     </head> 
     <body> 
-        <div id="hello"></div>
-        <div class="control">
-            <label class="label">Choose IdP:</label>
-            <input class="input" type="text" placeholder="IdP" id="selectedIdP" value="https://solidweb.me" />
-            <button class="button" onClick="encrypt()">🔐 Log in</button>
-            <h2 id="myWebID"></h2>
-        </div>
+        <main class="pod-navigator">
+            <section class="session-info">
+              <form data-simply-command="connect">
+                <label>
+                  <input name="issuer" type="text" value="https://solidweb.me">
+                </label>
+                <button>Connect</button>
+              </form>
+          
+              <h2>Session Data</h2>
+              <p>Session ID: <span data-simply-field="session.info.sessionId"></span></p>
+              <p>Logged in: <span data-simply-field="session.info.isLoggedIn"></span></p>
+              <p>Web ID: <span data-simply-field="session.info.webId"></span></p>
+            </section>
+          </main>
     </body>
 </html>
