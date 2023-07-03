@@ -1,0 +1,47 @@
+{
+  "name": "solid-sope-demo",
+  "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/besteves4/solid-sope.git"
+  },
+  "scripts": {
+    "audit": "npm audit --audit-level=moderate",
+    "audit-licenses": "license-checker --production --failOn \"AGPL-1.0-only; AGPL-1.0-or-later; AGPL-3.0-only; AGPL-3.0-or-later; Beerware; CC-BY-NC-1.0; CC-BY-NC-2.0; CC-BY-NC-2.5; CC-BY-NC-3.0; CC-BY-NC-4.0; CC-BY-NC-ND-1.0; CC-BY-NC-ND-2.0; CC-BY-NC-ND-2.5; CC-BY-NC-ND-3.0; CC-BY-NC-ND-4.0; CC-BY-NC-SA-1.0; CC-BY-NC-SA-2.0; CC-BY-NC-SA-2.5; CC-BY-NC-SA-3.0; CC-BY-NC-SA-4.0; CPAL-1.0; EUPL-1.0; EUPL-1.1; EUPL-1.1;  GPL-1.0-only; GPL-1.0-or-later; GPL-2.0-only;  GPL-2.0-or-later; GPL-3.0; GPL-3.0-only; GPL-3.0-or-later; SISSL;  SISSL-1.2; WTFPL\"",
+    "build": "next build",
+    "dev": "next dev -p 3002",
+    "ci": "npm run lint && npm run test",
+    "lint": "eslint pages --ext .js,.jsx",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@inrupt/solid-client": "^1.21.0",
+    "@inrupt/solid-client-authn-browser": "^1.11.7",
+    "@inrupt/solid-ui-react": "^2.8.0",
+    "@inrupt/vocab-common-rdf": "^1.0.5",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/lab": "^5.0.0-alpha.87",
+    "@mui/material": "^5.8.5",
+    "clsx": "^1.1.1",
+    "d3": "^7.4.4",
+    "next": "^12.1.5",
+    "react": "^17.0.2",
+    "react-d3-tree": "^3.3.2",
+    "react-dom": "^17.0.2",
+    "react-dropdown-tree-select": "^2.7.1",
+    "react-select": "^5.2.2"
+  },
+  "devDependencies": {
+    "eslint": "8.18.0",
+    "eslint-config-next": "^12.1.5",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.1"
+  }
+}

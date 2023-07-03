@@ -1,0 +1,6 @@
+{
+    "@context": "https://www.w3.org/ns/solid/oidc-context.jsonld",
+    "client_id": "http://localhost:3003/myappid.jsonld",
+    "redirect_uris": ["http://localhost:3003/"],
+    "client_name": "Access Test App"
+}
