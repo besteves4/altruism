@@ -98,7 +98,7 @@ export function Editor() {
       } else {
         const podRoot = response[0];
         // TODO: check if ```policiesContainer``` exists before using it as a path to store policies
-        const policiesContainer = "private/altruism/";
+        const policiesContainer = "altruism/";
         const podPoliciesContainer = new URL(policiesContainer, podRoot);
         const filename = policyStorage;
 
