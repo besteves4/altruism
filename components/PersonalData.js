@@ -82,11 +82,11 @@ export function PersonalData() {
   const { session, sessionRequestInProgress } = useSession();
 
   const [display, setDisplay] = useState(false);
-  //const [displayDataset, setDisplayDataset] = useState();
+  const [displayDataset, setDisplayDataset] = useState();
   const [displayCardData, setDisplayCardData] = useState("");
   const [displayCardPurpose, setDisplayCardPurpose] = useState("");
 
-  let displayDataset = []
+  //let displayDataset = []
   const getDatasets = () => {
 
     getPodUrlAll(session.info.webId).then((response) => {
@@ -104,9 +104,9 @@ export function PersonalData() {
           setDisplay(true);
         } */
         setDisplay(true);
-        displayDataset = datasets
+        //displayDataset = datasets
+        setDisplayDataset(datasets);
         console.log(displayDataset)
-        //setDisplayDataset(datasets);
       })
 
     })
