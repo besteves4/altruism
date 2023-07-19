@@ -43,50 +43,13 @@ async function getPolicies(policiesContainer) {
   return datasets;
 }
 
-const datasetCard = ({data, purpose}) => {
-  return (
-    <Card sx={{ maxWidth: 400 }}>
-                <CardContent>
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Purpose for access: {data}
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    Type of data: {purpose}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small">Ask access to the dataset</Button>
-                </CardActions>
-              </Card>
-  )
-}
-
-const CardList = ({cards}) => {
-  const cardsArray = cards.map(resourceCard => (
-    <div style={{minWidth:"200px"}}>
-    <datasetCard
-      data={resourceCard[0]}
-      purpose={resourceCard[1]}
-    />
-    </div>
-  ));
-
-  return (
-    <div style={{display:'flex',flexGrow:'1',flexShrink:"1",flexBasis:"100%" ,justifyContent:"space-around", flexWrap:"wrap", flexDirection:"row", flexGrow: "1", alignContent:"stretch"}}>
-      {cardsArray}
-    </div>
-  );
-}
-
 export function PersonalData() {
   const { session, sessionRequestInProgress } = useSession();
 
   const [display, setDisplay] = useState(false);
-  const [displayDataset, setDisplayDataset] = useState();
   const [displayCardData, setDisplayCardData] = useState("");
   const [displayCardPurpose, setDisplayCardPurpose] = useState("");
 
-  //let displayDataset = []
   const getDatasets = () => {
 
     getPodUrlAll(session.info.webId).then((response) => {
@@ -97,16 +60,13 @@ export function PersonalData() {
 
       getPolicies(podPoliciesContainer).then((datasets) => {
 
-        /*         for (var i = 0; i < datasets.length; i++) {
+        for (var i = 0; i < datasets.length; i++) {
           console.log(datasets[i]);
           setDisplayCardData(datasets[i][0]);
           setDisplayCardPurpose(datasets[i][1]);
           setDisplay(true);
-        } */
-        setDisplay(true);
-        //displayDataset = datasets
-        setDisplayDataset(datasets);
-        console.log(displayDataset)
+        }
+        
       })
 
     })
@@ -125,8 +85,7 @@ export function PersonalData() {
             Search Available Datasets
           </Button>
           {display && (
-            <CardList cards={displayDataset}></CardList>
-/*             <Card sx={{ maxWidth: 400 }}>
+            <Card sx={{ maxWidth: 400 }}>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                   Purpose for access: {displayCardPurpose}
@@ -138,7 +97,7 @@ export function PersonalData() {
               <CardActions>
                 <Button size="small">Ask access to the dataset</Button>
               </CardActions>
-            </Card> */
+            </Card>
           )}
         </div>
       </div>
