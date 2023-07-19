@@ -47,6 +47,7 @@ export function PersonalData() {
   const { session, sessionRequestInProgress } = useSession();
 
   const [display, setDisplay] = useState(false);
+  const [displayDataset, setDisplayDataset] = useState();
   const [displayCardData, setDisplayCardData] = useState("");
   const [displayCardPurpose, setDisplayCardPurpose] = useState("");
 
@@ -60,13 +61,14 @@ export function PersonalData() {
 
       getPolicies(podPoliciesContainer).then((datasets) => {
 
-        for (var i = 0; i < datasets.length; i++) {
+/*         for (var i = 0; i < datasets.length; i++) {
           console.log(datasets[i]);
           setDisplayCardData(datasets[i][0]);
           setDisplayCardPurpose(datasets[i][1]);
           setDisplay(true);
-        }
-
+        } */
+        setDisplay(true);
+        setDisplayDataset(datasets);
       })
 
     })
@@ -84,8 +86,8 @@ export function PersonalData() {
           <Button variant="small" value="permission" onClick={getDatasets}>
             Search Available Datasets
           </Button>
-          {display && (
-            <Card sx={{ minWidth: 275 }}>
+{/*           {display && (
+            <Card sx={{ maxWidth: 400 }}>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                   Purpose for access: {displayCardPurpose}
@@ -98,6 +100,22 @@ export function PersonalData() {
                 <Button size="small">Ask access to the dataset</Button>
               </CardActions>
             </Card>
+          )} */}
+          {display && displayDataset.map((dataset) => (
+              <Card sx={{ maxWidth: 400 }}>
+                <CardContent>
+                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    Purpose for access: {dataset[0]}
+                  </Typography>
+                  <Typography variant="h5" component="div">
+                    Type of data: {dataset[1]}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Ask access to the dataset</Button>
+                </CardActions>
+              </Card>
+            )
           )}
         </div>
       </div>
