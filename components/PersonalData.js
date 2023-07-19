@@ -27,7 +27,12 @@ async function getPolicies(policiesContainer) {
   });
 
   const policyList = getContainedResourceUrlAll(myDataset);
-  console.log(policyList);
+  for (var p = 0; p < policyList.length; p++) {
+    const policy = await getSolidDataset(policyList[p], {
+      fetch: fetch,
+    })
+    console.log(policy);
+  }
   return policyList;
 }
 
