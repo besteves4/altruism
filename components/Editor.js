@@ -33,8 +33,8 @@ async function getPolicyFilenames(policiesContainer) {
 }
 
 const altruisticPurpose = [
-  { value: "ScientificResearch", label: "Scientific Research" },
   { value: "CombatClimateChange", label: "Combat Climate Change" },
+  { value: "ScientificResearch", label: "Scientific Research" },
   { value: "ImproveHealthcare", label: "Improve Healthcare" },
   { value: "ImprovePublicServices", label: "Improve Public Services" },
   { value: "ImproveTransportMobility", label: "Improve Transport and Mobility" },
@@ -52,8 +52,8 @@ export function Editor() {
 
   const [chosenPurpose, setChosenPurpose] = useState(altruisticPurpose[0].value);
   const [chosenData, setChosenData] = useState(dataTypes[0].value);
-  const [dataStorage, setDataStorage] = useState("path/to/data.ttl");
-  const [policyStorage, setPolicyStorage] = useState("policy.ttl");
+  const [dataStorage, setDataStorage] = useState(session.info.webId);
+  const [policyStorage, setPolicyStorage] = useState("policy-x.ttl");
 
   const [display, setDisplay] = useState(false);
   const [displayResource, setDisplayResource] = useState("");
@@ -75,6 +75,7 @@ export function Editor() {
     newPolicy = setThing(newPolicy, policy);
 
     permission = addUrl(permission, ODRL.target, dataStorage);
+    permission = addUrl(permission, `${dpv}hasPersonalData`, `${dpv}${chosenData}`);
     permission = addUrl(permission, ODRL.action, `${oac}Read`);
     permission = addUrl(permission, ODRL.assigner, session.info.webId);
     let purposeConstraint = createThing({ name: "purposeConstraint" });
@@ -110,6 +111,7 @@ export function Editor() {
             alert("There is already a policy with that name, choose another");
           } else {
             try {
+
               saveSolidDatasetAt(filenameSave.href, newPolicy, {
                 fetch: fetch,
               });

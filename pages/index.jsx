@@ -73,7 +73,7 @@ export default function Home() {
                   aria-label="lab API tabs example"
                 >
                   <Tab label="Editor" value="1" />
-                  <Tab label="Personal Data" value="2" />
+                  <Tab label="Datasets" value="2" />
                 </TabList>
               </Box>
               <TabPanel value="1">
