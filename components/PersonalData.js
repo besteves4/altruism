@@ -2,25 +2,15 @@ import { useState } from "react";
 import { useSession } from "@inrupt/solid-ui-react";
 
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 
 import {
-  createSolidDataset,
-  createThing,
-  setThing,
-  addUrl,
-  saveSolidDatasetAt,
   getPodUrlAll,
   getSolidDataset,
   getContainedResourceUrlAll,
   getThing,
   getUrl
 } from "@inrupt/solid-client";
-import { RDF, ODRL } from "@inrupt/vocab-common-rdf";
+import { ODRL } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 
 async function getPolicies(policiesContainer) {
@@ -28,6 +18,7 @@ async function getPolicies(policiesContainer) {
     fetch: fetch,
   });
 
+  let datasets = [];
   const policyList = getContainedResourceUrlAll(myDataset);
   for (var p = 0; p < policyList.length; p++) {
     const policy = await getSolidDataset(policyList[p], {
@@ -40,10 +31,10 @@ async function getPolicies(policiesContainer) {
     const purposeConstraint = getThing(policy, `${policyList[p]}#purposeConstraint`);
     const purpose = getUrl(purposeConstraint, ODRL.rightOperand);
 
-    console.log(dataType);
-    console.log(purpose);
+    datasets[p] = [dataType, purpose];
+    //console.log(dict);
   }
-  return policyList;
+  return datasets;
 }
 
 export function PersonalData() {
@@ -52,13 +43,19 @@ export function PersonalData() {
   const getDatasets = () => {
 
     getPodUrlAll(session.info.webId).then((response) => {
+
       const podRoot = response[0];
       const policiesContainer = "altruism/";
       const podPoliciesContainer = new URL(policiesContainer, podRoot);
 
-      getPolicies(podPoliciesContainer).then((policyList) => {
+      getPolicies(podPoliciesContainer).then((datasets) => {
+
+        for (var i = 0; i < datasets.length; i++) {
+          console.log(datasets[i]);
+        }
 
       })
+
     })
 
   };
