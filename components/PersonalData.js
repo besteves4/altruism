@@ -62,7 +62,7 @@ export function PersonalData() {
 
       getPolicies(podPoliciesContainer).then((datasets) => {
 
-/*         for (var i = 0; i < datasets.length; i++) {
+        /*         for (var i = 0; i < datasets.length; i++) {
           console.log(datasets[i]);
           setDisplayCardData(datasets[i][0]);
           setDisplayCardPurpose(datasets[i][1]);
@@ -104,7 +104,7 @@ export function PersonalData() {
               </CardActions>
             </Card>
           )} */}
-          {display && displayDataset.map(dataset => 
+          {display && displayDataset.forEach(dataset => 
               <Card sx={{ maxWidth: 400 }}>
                 <CardContent>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
