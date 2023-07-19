@@ -22,7 +22,7 @@ import { RDF, ODRL } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 
 async function getPolicyFilenames(policiesContainer) {
-  console.log(policiesContainer);
+  // console.log(policiesContainer);
   const myDataset = await getSolidDataset(policiesContainer.href, {
     fetch: fetch,
   });
@@ -66,7 +66,7 @@ export function Editor() {
 
   const generatePolicy = () => {
     // TODO: chosenPolicy/selectedPD/selectedPurpose have to be gathered only when generatePolicy is activated
-    console.log(session);
+    //console.log(session);
     let newPolicy = createSolidDataset();
 
     let policy = createThing({ name: "policy1" });
