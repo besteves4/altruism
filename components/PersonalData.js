@@ -67,9 +67,7 @@ export function PersonalData() {
           setDisplayCardPurpose(datasets[i][1]);
           setDisplay(true);
         } */
-        useEffect(() => {
-          setThisState([['a', 'b', 'c'],['d', 'e', 'f'],['g', 'h', 'i']])
-        }, [])
+        setThisState([['a', 'b', 'c'],['d', 'e', 'f'],['g', 'h', 'i']])
         setDisplay(true);
         
       })
@@ -89,24 +87,22 @@ export function PersonalData() {
           <Button variant="small" value="permission" onClick={getDatasets}>
             Search Available Datasets
           </Button>
-          {display && 
-            thisState.map((items, index) => {
-
-              return (
-      
-                <ol>
-      
-                  {items.map((subItems, sIndex) => {
-      
-                    return <li> {subItems} </li>;
-      
-                  })}
-      
-                </ol>
-      
-              );
-      
-            }
+          {display && (
+            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+              {[1, 2, 3].map((value) => (
+                <ListItem
+                  key={value}
+                  disableGutters
+                  secondaryAction={
+                    <IconButton aria-label="comment">
+                      <CommentIcon />
+                    </IconButton>
+                  }
+                >
+                  <ListItemText primary={`Line item ${value}`} />
+                </ListItem>
+              ))}
+            </List>
 /*             <Card sx={{ maxWidth: 400 }}>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
