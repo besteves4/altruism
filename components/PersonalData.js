@@ -32,13 +32,16 @@ async function getPolicies(policiesContainer) {
   for (var p = 0; p < policyList.length; p++) {
     const policy = await getSolidDataset(policyList[p], {
       fetch: fetch,
-    })
-    const permission = getThing(
-      policy,
-      `${policyList[p]}#permission1`
-    );
+    });
+
+    const permission = getThing(policy, `${policyList[p]}#permission1`);
     const dataType = getUrl(permission, "https://w3id.org/dpv#hasPersonalData");
+
+    const purposeConstraint = getThing(policy, `${policyList[p]}#purposeConstraint`);
+    const purpose = getUrl(purposeConstraint, ODRL.rightOperand);
+
     console.log(dataType);
+    console.log(purpose);
   }
   return policyList;
 }
