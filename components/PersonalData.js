@@ -17,6 +17,8 @@ import {
   getPodUrlAll,
   getSolidDataset,
   getContainedResourceUrlAll,
+  getThing,
+  getUrl
 } from "@inrupt/solid-client";
 import { RDF, ODRL } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
@@ -31,7 +33,12 @@ async function getPolicies(policiesContainer) {
     const policy = await getSolidDataset(policyList[p], {
       fetch: fetch,
     })
-    console.log(policy);
+    const permission = getThing(
+      policy,
+      `${policyList[p]}#permission1`
+    );
+    const dataType = getUrl(permission, "https://w3id.org/dpv#hasPersonalData");
+    console.log(dataType);
   }
   return policyList;
 }
