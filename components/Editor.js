@@ -117,8 +117,8 @@ export function Editor() {
                 fetch: fetch,
               });
               setDisplayPolicy(filenameSave.href);
-              setDisplayResource(chosenData);
-              setDisplayData(dataStorage);
+              setDisplayResource(dataStorage);
+              setDisplayData(chosenData);
               setDisplayPurpose(chosenPurpose);
               setDisplay(true);
             } catch (error) {
