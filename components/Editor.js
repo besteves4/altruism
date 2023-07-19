@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSession } from "@inrupt/solid-ui-react";
-import DropdownTreeSelect from "react-dropdown-tree-select";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -62,11 +61,12 @@ export function Editor() {
 
   const generatePolicy = () => {
     // TODO: chosenPolicy/selectedPD/selectedPurpose have to be gathered only when generatePolicy is activated
+    console.log(session);
     let newPolicy = createSolidDataset();
 
     const dga = "https://w3id.org/dgaterms#"
-    const dpv = "http://www.w3.org/ns/dpv#";
-    const oac = "https://w3id.org/oac#";
+    const dpv = "https://w3id.org/dpv#" ;
+    const oac = "https://w3id.org/oac#" ;
 
     let policy = createThing({ name: "policy1" });
     let permission = createThing({ name: "permission1" });
