@@ -104,7 +104,7 @@ export function PersonalData() {
               </CardActions>
             </Card>
           )} */}
-          {display && displayDataset.map((dataset) => (
+          {display && displayDataset.map(dataset => 
               <Card sx={{ maxWidth: 400 }}>
                 <CardContent>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -118,7 +118,6 @@ export function PersonalData() {
                   <Button size="small">Ask access to the dataset</Button>
                 </CardActions>
               </Card>
-            )
           )}
         </div>
       </div>
