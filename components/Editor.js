@@ -55,7 +55,7 @@ export function Editor() {
 
   const [chosenPurpose, setChosenPurpose] = useState(altruisticPurpose[0].value);
   const [chosenData, setChosenData] = useState(dataTypes[0].value);
-  const [dataStorage, setDataStorage] = useState(session.info.webId);
+  const [dataStorage, setDataStorage] = useState(session.info.webId.split("profile")[0]);
   const [policyStorage, setPolicyStorage] = useState("policy-x.ttl");
 
   const [display, setDisplay] = useState(false);
