@@ -64,7 +64,7 @@ export function Editor() {
     // TODO: chosenPolicy/selectedPD/selectedPurpose have to be gathered only when generatePolicy is activated
     let newPolicy = createSolidDataset();
 
-    const dga = "http://anon/dgaterms#"
+    const dga = "https://w3id.org/dgaterms#"
     const dpv = "http://www.w3.org/ns/dpv#";
     const oac = "https://w3id.org/oac#";
 
