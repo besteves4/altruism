@@ -37,7 +37,7 @@ async function getPolicies(policiesContainer) {
     const purposeConstraint = getThing(policy, `${policyList[p]}#purposeConstraint`);
     const purpose = getUrl(purposeConstraint, ODRL.rightOperand);
 
-    datasets[p] = [dataType, purpose];
+    datasets[p] = [dataType.split("#")[1], purpose.split("#")[1]];
     //console.log(dict);
   }
   return datasets;
@@ -46,6 +46,7 @@ async function getPolicies(policiesContainer) {
 export function PersonalData() {
   const { session, sessionRequestInProgress } = useSession();
 
+  const [display, setDisplay] = useState(false);
   const [displayCardData, setDisplayCardData] = useState("");
   const [displayCardPurpose, setDisplayCardPurpose] = useState("");
 
@@ -63,6 +64,7 @@ export function PersonalData() {
           console.log(datasets[i]);
           setDisplayCardData(datasets[i][0]);
           setDisplayCardPurpose(datasets[i][1]);
+          setDisplay(true);
         }
 
       })
@@ -80,21 +82,23 @@ export function PersonalData() {
       <div className="App">
         <div className="bottom-container">
           <Button variant="small" value="permission" onClick={getDatasets}>
-            Get Datasets
+            Search Available Datasets
           </Button>
-          <Card sx={{ minWidth: 275 }}>
-            <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                {displayCardPurpose}
-              </Typography>
-              <Typography variant="h5" component="div">
-                {displayCardData}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Ask access</Button>
-            </CardActions>
-          </Card>
+          {display && (
+            <Card sx={{ minWidth: 275 }}>
+              <CardContent>
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                  Purpose for access: {displayCardPurpose}
+                </Typography>
+                <Typography variant="h5" component="div">
+                  Type of data: {displayCardData}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Ask access to the dataset</Button>
+              </CardActions>
+            </Card>
+          )}
         </div>
       </div>
     </div>
