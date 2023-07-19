@@ -60,6 +60,7 @@ export function Editor() {
 
   const [display, setDisplay] = useState(false);
   const [displayResource, setDisplayResource] = useState("");
+  const [displayData, setDisplayData] = useState("");
   const [displayPolicy, setDisplayPolicy] = useState("");
   const [displayPurpose, setDisplayPurpose] = useState("");
 
@@ -116,7 +117,8 @@ export function Editor() {
                 fetch: fetch,
               });
               setDisplayPolicy(filenameSave.href);
-              setDisplayResource(dataStorage);
+              setDisplayResource(chosenData);
+              setDisplayData(dataStorage);
               setDisplayPurpose(chosenPurpose);
               setDisplay(true);
             } catch (error) {
@@ -222,6 +224,7 @@ export function Editor() {
           <pre>{`
             PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
             PREFIX odrl: <http://www.w3.org/ns/odrl/2/>
+            PREFIX dpv: <${dpv}> 
             PREFIX oac: <${oac}>
             PREFIX dga: <${dga}>            
 
@@ -231,7 +234,8 @@ export function Editor() {
                 odrl:permission [
                     odrl:assigner <${session.info.webId}> ;
                     odrl:action oac:Read ;
-                    odrl:target ${displayResource} ;
+                    dpv:hasPersonalData <${displayData}> ;
+                    odrl:target <${displayResource}> ;
                     odrl:constraint [
                         odrl:leftOperand oac:Purpose ;
                         odrl:operator odrl:isA ;
