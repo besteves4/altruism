@@ -234,7 +234,7 @@ export function Editor() {
                 odrl:permission [
                     odrl:assigner <${session.info.webId}> ;
                     odrl:action oac:Read ;
-                    dpv:hasPersonalData <${displayData}> ;
+                    dpv:hasPersonalData dpv:${displayData} ;
                     odrl:target <${displayResource}> ;
                     odrl:constraint [
                         odrl:leftOperand oac:Purpose ;
