@@ -49,6 +49,10 @@ const dataTypes = [
 export function Editor() {
   const { session, sessionRequestInProgress } = useSession();
 
+  const dga = "https://w3id.org/dgaterms#"
+  const dpv = "https://w3id.org/dpv#" ;
+  const oac = "https://w3id.org/oac#" ;
+
   const [chosenPurpose, setChosenPurpose] = useState(altruisticPurpose[0].value);
   const [chosenData, setChosenData] = useState(dataTypes[0].value);
   const [dataStorage, setDataStorage] = useState(session.info.webId);
@@ -63,10 +67,6 @@ export function Editor() {
     // TODO: chosenPolicy/selectedPD/selectedPurpose have to be gathered only when generatePolicy is activated
     console.log(session);
     let newPolicy = createSolidDataset();
-
-    const dga = "https://w3id.org/dgaterms#"
-    const dpv = "https://w3id.org/dpv#" ;
-    const oac = "https://w3id.org/oac#" ;
 
     let policy = createThing({ name: "policy1" });
     let permission = createThing({ name: "permission1" });
