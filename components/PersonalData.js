@@ -10,8 +10,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/material/CommentIcon';
+//import IconButton from '@mui/material/IconButton';
+// import CommentIcon from '@mui/material/CommentIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import {
@@ -98,11 +98,6 @@ export function PersonalData() {
                 <ListItem
                   key={value}
                   disableGutters
-                  secondaryAction={
-                    <IconButton aria-label="comment">
-                      <CommentIcon />
-                    </IconButton>
-                  }
                 >
                   <ListItemText primary={`Line item ${value}`} />
                 </ListItem>
