@@ -43,6 +43,41 @@ async function getPolicies(policiesContainer) {
   return datasets;
 }
 
+const datasetCard = ({data, purpose}) => {
+  return (
+    <Card sx={{ maxWidth: 400 }}>
+                <CardContent>
+                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    Purpose for access: {data}
+                  </Typography>
+                  <Typography variant="h5" component="div">
+                    Type of data: {purpose}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Ask access to the dataset</Button>
+                </CardActions>
+              </Card>
+  )
+}
+
+const CardList = ({cards}) => {
+  const cardsArray = cards.map(resourceCard => (
+    <div style={{minWidth:"200px"}}>
+    <datasetCard
+      data={resourceCard[0]}
+      purpose={resourceCard[1]}
+    />
+    </div>
+  ));
+
+  return (
+    <div style={{display:'flex',flexGrow:'1',flexShrink:"1",flexBasis:"100%" ,justifyContent:"space-around", flexWrap:"wrap", flexDirection:"row", flexGrow: "1", alignContent:"stretch"}}>
+      {cardsArray}
+    </div>
+  );
+}
+
 export function PersonalData() {
   const { session, sessionRequestInProgress } = useSession();
 
@@ -89,8 +124,9 @@ export function PersonalData() {
           <Button variant="small" value="permission" onClick={getDatasets}>
             Search Available Datasets
           </Button>
-{/*           {display && (
-            <Card sx={{ maxWidth: 400 }}>
+          {display && (
+            <CardList cards={displayDataset}></CardList>
+/*             <Card sx={{ maxWidth: 400 }}>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                   Purpose for access: {displayCardPurpose}
@@ -102,22 +138,7 @@ export function PersonalData() {
               <CardActions>
                 <Button size="small">Ask access to the dataset</Button>
               </CardActions>
-            </Card>
-          )} */}
-          {display && displayDataset.forEach(dataset => 
-              <Card sx={{ maxWidth: 400 }}>
-                <CardContent>
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Purpose for access: {dataset[0]}
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    Type of data: {dataset[1]}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button size="small">Ask access to the dataset</Button>
-                </CardActions>
-              </Card>
+            </Card> */
           )}
         </div>
       </div>
