@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as React from 'react';
 import { useSession } from "@inrupt/solid-ui-react";
 
@@ -47,8 +47,9 @@ export function PersonalData() {
   const { session, sessionRequestInProgress } = useSession();
 
   const [display, setDisplay] = useState(false);
-  const [displayCardData, setDisplayCardData] = useState("");
-  const [displayCardPurpose, setDisplayCardPurpose] = useState("");
+  let [thisState, setThisState] = useState([])
+  //const [displayCardData, setDisplayCardData] = useState("");
+  //const [displayCardPurpose, setDisplayCardPurpose] = useState("");
 
   const getDatasets = () => {
 
@@ -60,12 +61,16 @@ export function PersonalData() {
 
       getPolicies(podPoliciesContainer).then((datasets) => {
 
-        for (var i = 0; i < datasets.length; i++) {
+/*         for (var i = 0; i < datasets.length; i++) {
           console.log(datasets[i]);
           setDisplayCardData(datasets[i][0]);
           setDisplayCardPurpose(datasets[i][1]);
           setDisplay(true);
-        }
+        } */
+        useEffect(() => {
+          setThisState([['a', 'b', 'c'],['d', 'e', 'f'],['g', 'h', 'i']])
+        }, [])
+        setDisplay(true);
         
       })
 
@@ -84,8 +89,25 @@ export function PersonalData() {
           <Button variant="small" value="permission" onClick={getDatasets}>
             Search Available Datasets
           </Button>
-          {display && (
-            <Card sx={{ maxWidth: 400 }}>
+          {display && 
+            thisState.map((items, index) => {
+
+              return (
+      
+                <ol>
+      
+                  {items.map((subItems, sIndex) => {
+      
+                    return <li> {subItems} </li>;
+      
+                  })}
+      
+                </ol>
+      
+              );
+      
+            }
+/*             <Card sx={{ maxWidth: 400 }}>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                   Purpose for access: {displayCardPurpose}
@@ -97,7 +119,7 @@ export function PersonalData() {
               <CardActions>
                 <Button size="small">Ask access to the dataset</Button>
               </CardActions>
-            </Card>
+            </Card> */
           )}
         </div>
       </div>
