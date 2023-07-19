@@ -1,7 +1,13 @@
 import { useState } from "react";
+import * as React from 'react';
 import { useSession } from "@inrupt/solid-ui-react";
 
 import Button from "@mui/material/Button";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 import {
   getPodUrlAll,
@@ -40,6 +46,9 @@ async function getPolicies(policiesContainer) {
 export function PersonalData() {
   const { session, sessionRequestInProgress } = useSession();
 
+  const [displayCardData, setDisplayCardData] = useState("");
+  const [displayCardPurpose, setDisplayCardPurpose] = useState("");
+
   const getDatasets = () => {
 
     getPodUrlAll(session.info.webId).then((response) => {
@@ -52,6 +61,8 @@ export function PersonalData() {
 
         for (var i = 0; i < datasets.length; i++) {
           console.log(datasets[i]);
+          setDisplayCardData(datasets[i][0]);
+          setDisplayCardPurpose(datasets[i][1]);
         }
 
       })
@@ -71,6 +82,19 @@ export function PersonalData() {
           <Button variant="small" value="permission" onClick={getDatasets}>
             Get Datasets
           </Button>
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                {displayCardPurpose}
+              </Typography>
+              <Typography variant="h5" component="div">
+                {displayCardData}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size="small">Ask access</Button>
+            </CardActions>
+          </Card>
         </div>
       </div>
     </div>
