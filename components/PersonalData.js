@@ -68,6 +68,7 @@ export function PersonalData() {
           setDisplay(true);
         } */
         setDisplay(true);
+        console.log(datasets)
         setDisplayDataset(datasets);
       })
 
