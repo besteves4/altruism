@@ -7,7 +7,7 @@ export default function getConfig() {
     libraryRepoUrl: packageJson.repository.url,
     demoRepoUrl: packageJson.repository.url,
     copyright: "Copyright 2021 Inrupt, Inc.",
-    demoTitle: "SOPE",
-    demoDescription: "A Solid ODRL access control Policies Editor",
+    demoTitle: "SoDA",
+    demoDescription: "A Solid Data Atruism app",
   };
 }
