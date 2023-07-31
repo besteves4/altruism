@@ -43,8 +43,9 @@ async function getPolicies(policiesContainer) {
     const purpose = getUrl(purposeConstraint, ODRL.rightOperand);
 
     datasets[p] = [dataType.split("#")[1], purpose.split("#")[1]];
-    console.log(datasets);
   }
+
+  console.log(datasets);
   return datasets;
 }
 
@@ -93,7 +94,7 @@ export function PersonalData() {
             Search Available Datasets
           </Button>
           {display && (
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+/*             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
               {thisState.map((value) => (
                 <ListItem
                   key={value[0]}
@@ -102,7 +103,24 @@ export function PersonalData() {
                   <ListItemText primary={`Line item ${value[0]}`} />
                 </ListItem>
               ))}
-            </List>
+            </List> */
+            <div>
+              {thisState.map((value) => (
+                <Card sx={{ maxWidth: 400 }}>
+                  <CardContent>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                      Purpose for access: {value[1]}
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                      Type of data: {value[0]}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">Ask access to the dataset</Button>
+                  </CardActions>
+                </Card>
+              ))}
+            </div>
 /*             <Card sx={{ maxWidth: 400 }}>
               <CardContent>
                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
