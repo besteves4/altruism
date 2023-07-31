@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as React from 'react';
 import { useSession } from "@inrupt/solid-ui-react";
 
@@ -7,9 +7,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 
 import {
@@ -21,14 +19,6 @@ import {
 } from "@inrupt/solid-client";
 import { ODRL } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 async function getPolicies(policiesContainer) {
   const myDataset = await getSolidDataset(policiesContainer.href, {
@@ -51,7 +41,7 @@ async function getPolicies(policiesContainer) {
     datasets[p] = [dataType.split("#")[1], purpose.split("#")[1]];
   }
 
-  console.log(datasets);
+  // console.log(datasets);
   return datasets;
 }
 
@@ -95,8 +85,7 @@ export function PersonalData() {
             <Box sx={{ flexGrow: 1 }}>
               <Grid container spacing={2}>
                 {thisState.map((value) => (
-                  <Grid item xs={12} sm={6}>
-                    {/* <Card sx={{ maxWidth: 400 }}> */}
+                  <Grid item xs={12} sm={4}>
                     <Card>
                       <CardContent>
                         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
