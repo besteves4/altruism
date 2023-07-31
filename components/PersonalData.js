@@ -3,16 +3,10 @@ import * as React from 'react';
 import { useSession } from "@inrupt/solid-ui-react";
 
 import Button from "@mui/material/Button";
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-//import IconButton from '@mui/material/IconButton';
-// import CommentIcon from '@mui/material/CommentIcon';
-import ListItemText from '@mui/material/ListItemText';
 
 import {
   getPodUrlAll,
@@ -53,9 +47,7 @@ export function PersonalData() {
   const { session, sessionRequestInProgress } = useSession();
 
   const [display, setDisplay] = useState(false);
-  let [thisState, setThisState] = useState([])
-  //const [displayCardData, setDisplayCardData] = useState("");
-  //const [displayCardPurpose, setDisplayCardPurpose] = useState("");
+  let [thisState, setThisState] = useState([]);
 
   const getDatasets = () => {
 
@@ -67,12 +59,6 @@ export function PersonalData() {
 
       getPolicies(podPoliciesContainer).then((datasets) => {
 
-/*         for (var i = 0; i < datasets.length; i++) {
-          console.log(datasets[i]);
-          setDisplayCardData(datasets[i][0]);
-          setDisplayCardPurpose(datasets[i][1]);
-          setDisplay(true);
-        } */
         setThisState(datasets)
         setDisplay(true);
         
@@ -94,16 +80,6 @@ export function PersonalData() {
             Search Available Datasets
           </Button>
           {display && (
-/*             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-              {thisState.map((value) => (
-                <ListItem
-                  key={value[0]}
-                  disableGutters
-                >
-                  <ListItemText primary={`Line item ${value[0]}`} />
-                </ListItem>
-              ))}
-            </List> */
             <div>
               {thisState.map((value) => (
                 <Card sx={{ maxWidth: 400 }}>
@@ -121,19 +97,6 @@ export function PersonalData() {
                 </Card>
               ))}
             </div>
-/*             <Card sx={{ maxWidth: 400 }}>
-              <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                  Purpose for access: {displayCardPurpose}
-                </Typography>
-                <Typography variant="h5" component="div">
-                  Type of data: {displayCardData}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small">Ask access to the dataset</Button>
-              </CardActions>
-            </Card> */
           )}
         </div>
       </div>
