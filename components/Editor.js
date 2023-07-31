@@ -13,6 +13,8 @@ import {
   createThing,
   setThing,
   addUrl,
+  addStringNoLocale,
+  buildThing,
   saveSolidDatasetAt,
   getPodUrlAll,
   getSolidDataset,
@@ -131,7 +133,7 @@ export function Editor() {
   };
 
   const shareWithSoDACompany = () => {
-    let newPolicy = createSolidDataset();
+/*     let newPolicy = createSolidDataset();
 
     let policy = createThing({ name: "policy1" });
     let permission = createThing({ name: "permission1" });
@@ -142,7 +144,18 @@ export function Editor() {
     const catalogsContainer = new URL("https://solidweb.me/soda/catalogs/catalog1");
     saveSolidDatasetAt(catalogsContainer, newPolicy, {
       fetch: fetch,
-    });
+    }); */
+    let courseSolidDataset = createSolidDataset();
+    const newBookThing1 = buildThing(createThing({ name: "book1" }))
+      .addStringNoLocale(ODRL.target, "ABC123 of Example Literature")
+      .addUrl(RDF.type, "https://schema.org/Book")
+      .build();
+    courseSolidDataset = setThing(courseSolidDataset, newBookThing1);
+    saveSolidDatasetAt(
+      "https://solidweb.me/soda/catalogs/catalog1",
+      courseSolidDataset,
+      { fetch: fetch }             // fetch from authenticated Session
+    );
   };
 
   if (sessionRequestInProgress) {
