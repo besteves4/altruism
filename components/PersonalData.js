@@ -43,7 +43,7 @@ async function getPolicies(policiesContainer) {
     const purpose = getUrl(purposeConstraint, ODRL.rightOperand);
 
     datasets[p] = [dataType.split("#")[1], purpose.split("#")[1]];
-    //console.log(dict);
+    console.log(datasets);
   }
   return datasets;
 }
@@ -72,7 +72,7 @@ export function PersonalData() {
           setDisplayCardPurpose(datasets[i][1]);
           setDisplay(true);
         } */
-        setThisState([['a', 'b', 'c'],['d', 'e', 'f'],['g', 'h', 'i']])
+        setThisState(datasets)
         setDisplay(true);
         
       })
@@ -94,12 +94,12 @@ export function PersonalData() {
           </Button>
           {display && (
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-              {[1, 2, 3].map((value) => (
+              {thisState.map((value) => (
                 <ListItem
-                  key={value}
+                  key={value[0]}
                   disableGutters
                 >
-                  <ListItemText primary={`Line item ${value}`} />
+                  <ListItemText primary={`Line item ${value[0]}`} />
                 </ListItem>
               ))}
             </List>
