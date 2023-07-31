@@ -130,6 +130,21 @@ export function Editor() {
     });
   };
 
+  const shareWithSoDACompany = () => {
+    let newPolicy = createSolidDataset();
+
+    let policy = createThing({ name: "policy1" });
+    let permission = createThing({ name: "permission1" });
+    policy = addUrl(policy, RDF.type, ODRL.Offer);
+    policy = addUrl(policy, ODRL.permission, permission);
+    newPolicy = setThing(newPolicy, policy);
+
+    const catalogsContainer = new URL("https://solidweb.me/soda/catalogs/catalog1");
+    saveSolidDatasetAt(catalogsContainer, newPolicy, {
+      fetch: fetch,
+    });
+  };
+
   if (sessionRequestInProgress) {
     return null;
   }
@@ -143,7 +158,7 @@ export function Editor() {
               <b>Indicate the URL of the resource to share:</b>
             </p>
             <TextField
-              size="small"
+              size="medium"
               onChange={(ev) => setDataStorage(ev.target.value)}
               value={dataStorage}
             />
@@ -214,7 +229,10 @@ export function Editor() {
           </div>
           <div className="bottom-container">
             <Button variant="small" value="permission" onClick={generatePolicy}>
-              Generate
+              Generate & Store in the Pod
+            </Button>
+            <Button variant="small" value="permission" onClick={shareWithSoDACompany}>
+              Send to Data Altruism Organisation
             </Button>
           </div>
         </div>
