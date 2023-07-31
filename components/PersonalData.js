@@ -7,6 +7,10 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
 import {
   getPodUrlAll,
@@ -17,6 +21,14 @@ import {
 } from "@inrupt/solid-client";
 import { ODRL } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 async function getPolicies(policiesContainer) {
   const myDataset = await getSolidDataset(policiesContainer.href, {
@@ -80,23 +92,28 @@ export function PersonalData() {
             Search Available Datasets
           </Button>
           {display && (
-            <div>
-              {thisState.map((value) => (
-                <Card sx={{ maxWidth: 400 }}>
-                  <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                      Purpose for access: {value[1]}
-                    </Typography>
-                    <Typography variant="h5" component="div">
-                      Type of data: {value[0]}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">Ask access to the dataset</Button>
-                  </CardActions>
-                </Card>
-              ))}
-            </div>
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid container spacing={2}>
+                {thisState.map((value) => (
+                  <Grid item xs={12} sm={6}>
+                    {/* <Card sx={{ maxWidth: 400 }}> */}
+                    <Card>
+                      <CardContent>
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                          Purpose for access: {value[1]}
+                        </Typography>
+                        <Typography variant="h5" component="div">
+                          Type of data: {value[0]}
+                        </Typography> 
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">Ask access to the dataset</Button>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
           )}
         </div>
       </div>
