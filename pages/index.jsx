@@ -27,28 +27,23 @@ export default function Home() {
       {!session.info.isLoggedIn && (
         <div className="logged-out">
           <p>
-            SOPE is a Solid ODRL access control Policies Editor for users of
-            Solid apps.
+            SoDA is a proof-of-concept Solid Data Altruism app for data subjects and data users to share/access
+            personal data according to the concept of "data altruism" envisioned by European Union's Data Governance Act (DGA).
           </p>
           <p>
-            It allows you to define ODRL policies, based on the{" "}
-            <a href="https://w3id.org/oac/">OAC specification</a>, to govern the
-            access to Pod resources and to store them on your Pod.
+            It allows people storing personal data in Solid Pods to generate policies to voluntarily share said data 
+            for altruistic purposes, such as improving healthcare or combating climate change, based on 
+            the purposes specified in the{" "}
+            <a href="https://w3id.org/dgaterms">DGAterms vocabulary</a> and on the{" "}
+            <a href="https://w3id.org/oac">ODRL profile for Access Control (OAC)</a>.
           </p>
           <p>
-            To get started, log in to your Pod and select the type of policy you
-            want to model.
+            To get started, log in to your Pod and select whether you want to generate policies to make data available
+            for altruistic usage ("POLICY EDITOR" tab) or to search for available datasets to use ("DATASETS" tab).
           </p>
           <p>
-            Next, you can choose the types of personal data and purposes to
-            which the policy applies.
-          </p>
-          <p>
-            Finally, you can generate the ODRL policy&apos;s RDF by clicking the
-            &quot;Generate&quot; button and save it in your Pod.
-          </p>
-          <p>
-            <a href="mailto:beatriz.gesteves@upm.es">Contact Me</a>
+            Feel free to contact me at <a href="mailto:beatriz.gesteves@upm.es">beatriz.gesteves AT upm.es</a> if you have any 
+            questions or feedback about the app and its functionalities.
           </p>
         </div>
       )}
@@ -59,8 +54,7 @@ export default function Home() {
               SoDA's "POLICY EDITOR" tab allows data subjects to generate policies to share their personal data 
               for an altruistic purpose, such as improving healthcare, based on the
               Data Governance Act (DGA) altruistic purposes specified in the{" "}
-              <a href="https://w3id.org/dgaterms">DGAterms vocabulary</a>
-              and on the{" "}
+              <a href="https://w3id.org/dgaterms">DGAterms vocabulary</a> and on the{" "}
               <a href="https://w3id.org/oac">ODRL profile for Access Control (OAC)</a>.
               In addition, data users can request access to datasets
               for altruistic purposes in the "DATASETS" tab.
