@@ -56,13 +56,14 @@ export default function Home() {
         <div>
           <div className="row">
             <div className="logged-in">
-              SOPE allows you to define ODRL policies, based on the{" "}
-              <a href="https://w3id.org/oac/">OAC specification</a>, to govern
-              the access to Pod resources and to store them on your Pod. Select
-              the type of policy you want to model, choose the types of personal
-              data and purposes to which the policy applies, generate the ODRL
-              policy&apos;s RDF and save it in your Pod by clicking on the
-              &quot;Generate&quot; button.
+              SoDA's "POLICY EDITOR" tab allows data subjects to generate policies to share their personal data 
+              for an altruistic purpose, such as improving healthcare, based on the
+              Data Governance Act (DGA) altruistic purposes specified in the{" "}
+              <a href="https://w3id.org/dgaterms">DGAterms vocabulary</a>
+              and on the{" "}
+              <a href="https://w3id.org/oac">ODRL profile for Access Control (OAC)</a>.
+              In addition, data users can request access to datasets
+              for altruistic purposes in the "DATASETS" tab.
             </div>
           </div>
           <Box sx={{ width: "100%", typography: "body1" }}>
@@ -72,7 +73,7 @@ export default function Home() {
                   onChange={handleChange}
                   aria-label="lab API tabs example"
                 >
-                  <Tab label="Editor" value="1" />
+                  <Tab label="Policy Editor" value="1" />
                   <Tab label="Datasets" value="2" />
                 </TabList>
               </Box>
