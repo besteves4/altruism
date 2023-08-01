@@ -145,16 +145,21 @@ export function Editor() {
     saveSolidDatasetAt(catalogsContainer, newPolicy, {
       fetch: fetch,
     }); */
-    let courseSolidDataset = createSolidDataset();
+    // let courseSolidDataset = createSolidDataset();
+    const resourceURL = "https://solidweb.me/soda/catalogs/catalog1";
+    let courseSolidDataset = getSolidDataset(
+      resourceURL,
+      { fetch: fetch }
+    );
     const newBookThing1 = buildThing(createThing({ name: "book1" }))
       .addStringNoLocale(ODRL.target, "ABC123 of Example Literature")
       .addUrl(RDF.type, "https://schema.org/Book")
       .build();
     courseSolidDataset = setThing(courseSolidDataset, newBookThing1);
     saveSolidDatasetAt(
-      "https://solidweb.me/soda/catalogs/catalog1",
+      resourceURL,
       courseSolidDataset,
-      { fetch: fetch }             // fetch from authenticated Session
+      { fetch: fetch }
     );
   };
 
