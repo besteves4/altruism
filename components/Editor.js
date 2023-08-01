@@ -156,11 +156,15 @@ export function Editor() {
       .addUrl(RDF.type, "https://schema.org/Book")
       .build();
     courseSolidDataset = setThing(courseSolidDataset, newBookThing1);
-    saveSolidDatasetAt(
-      resourceURL,
-      courseSolidDataset,
-      { fetch: fetch }
-    );
+    try {
+      saveSolidDatasetAt(
+        resourceURL,
+        courseSolidDataset,
+        { fetch: fetch }
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (sessionRequestInProgress) {
