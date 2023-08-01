@@ -156,6 +156,7 @@ export function Editor() {
       .addUrl(RDF.type, "https://schema.org/Book")
       .build();
     courseSolidDataset = setThing(courseSolidDataset, newBookThing1);
+    console.log(courseSolidDataset)
     try {
       saveSolidDatasetAt(
         resourceURL,
