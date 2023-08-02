@@ -24,13 +24,26 @@ import { RDF, ODRL } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 
 async function getPolicyFilenames(policiesContainer) {
-  // console.log(policiesContainer);
   const myDataset = await getSolidDataset(policiesContainer.href, {
     fetch: fetch,
   });
 
   const policyList = getContainedResourceUrlAll(myDataset);
   return policyList;
+}
+
+async function getDatasetCatalog(resourceURL) {
+  let courseSolidDataset = await getSolidDataset(resourceURL, {
+    fetch: fetch,
+  });
+
+  const newBookThing1 = buildThing(createThing({ name: "book1" }))
+    .addStringNoLocale(ODRL.target, "ABC123 of Example Literature")
+    .addUrl(RDF.type, "https://schema.org/Book")
+    .build();
+  console.log(courseSolidDataset);
+  courseSolidDataset = setThing(courseSolidDataset, newBookThing1);
+  return courseSolidDataset;
 }
 
 const altruisticPurpose = [
@@ -132,46 +145,25 @@ export function Editor() {
     });
   };
 
-  const shareWithSoDACompany = () => {
-/*     let newPolicy = createSolidDataset();
-
-    let policy = createThing({ name: "policy1" });
-    let permission = createThing({ name: "permission1" });
-    policy = addUrl(policy, RDF.type, ODRL.Offer);
-    policy = addUrl(policy, ODRL.permission, permission);
-    newPolicy = setThing(newPolicy, policy);
-
-    const catalogsContainer = new URL("https://solidweb.me/soda/catalogs/catalog1");
-    saveSolidDatasetAt(catalogsContainer, newPolicy, {
-      fetch: fetch,
-    }); */
-    // let courseSolidDataset = createSolidDataset();
+  const shareWithSoDACompany = () => { 
     const resourceURL = "https://solidweb.me/soda/catalogs/catalog1";
-    let courseSolidDataset = getSolidDataset(
-      resourceURL,
-      { fetch: fetch }
-    );
-    const newBookThing1 = buildThing(createThing({ name: "book1" }))
-      .addStringNoLocale(ODRL.target, "ABC123 of Example Literature")
-      .addUrl(RDF.type, "https://schema.org/Book")
-      .build();
-    console.log(courseSolidDataset)
-    courseSolidDataset = setThing(courseSolidDataset, newBookThing1);
     
-    try {
-      saveSolidDatasetAt(
-        resourceURL,
-        courseSolidDataset,
-        { fetch: fetch }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    getDatasetCatalog(resourceURL).then((catalog) => {
+      try {
+        saveSolidDatasetAt(
+          resourceURL,
+          catalog,
+          { fetch: fetch }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    })
   };
 
   if (sessionRequestInProgress) {
     return null;
-  }
+  };
 
   return (
     <div className="row">
