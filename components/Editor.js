@@ -44,7 +44,7 @@ async function getDatasetCatalog(catalogURL, policyURL, publisherURL, datasetURL
     .addStringNoLocale(DCTERMS.description, "Dataset")
     .build();
   console.log(catalog);
-  courseSolidDataset = setThing(catalog, dataset);
+  catalog = setThing(catalog, dataset);
   return catalog;
 }
 
