@@ -32,19 +32,27 @@ async function getPolicyFilenames(policiesContainer) {
   return policyList;
 }
 
-async function getDatasetCatalog(catalogURL, policyURL, publisherURL, datasetURL) {
+async function getDatasetCatalog(catalogURL, policyURL, publisherURL, datasetURL, dataType, purpose) {
   let catalog = await getSolidDataset(catalogURL, {
     fetch: fetch,
   });
-  const dataset = buildThing(createThing({ name: "dataset1" }))
+
+  const dataset = buildThing(createThing({ name: `dataset-${policyURL}` }))
     .addUrl(RDF.type, DCAT.Dataset)
     .addUrl(ODRL.hasPolicy, policyURL)
     .addUrl(DCTERMS.publisher, publisherURL)
     .addUrl("https://w3id.org/dpv#hasLocation", datasetURL)
-    .addStringNoLocale(DCTERMS.description, "Dataset")
+    .addUrl("https://w3id.org/dpv#hasPersonalData", `https://w3id.org/dpv/dpv-pd#${dataType}`)
+    .addUrl("https://w3id.org/dpv#hasPurpose", `https://w3id.org/dgaterms#${purpose}`)
+    .addStringNoLocale(DCTERMS.description, `Dataset of ${dataType} to be used to ${purpose}`)
     .build();
-  console.log(catalog);
   catalog = setThing(catalog, dataset);
+
+  const test = buildThing(createThing())
+  .addUrl(DCAT.dataset, `${catalogURL}#dataset-${policyURL}`)
+  .build();
+  catalog = setThing(catalog, test);
+
   return catalog;
 }
 
@@ -155,7 +163,7 @@ export function Editor() {
       const podRoot = response[0];
       const policyURL = `${podRoot}altruism/${policyStorage}`;
 
-      getDatasetCatalog(catalogURL, policyURL, session.info.webId, dataStorage).then((catalog) => {
+      getDatasetCatalog(catalogURL, policyURL, session.info.webId, dataStorage, chosenData, chosenPurpose).then((catalog) => {
         try {
           saveSolidDatasetAt(
             catalogURL,
