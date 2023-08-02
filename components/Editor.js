@@ -155,8 +155,9 @@ export function Editor() {
       .addStringNoLocale(ODRL.target, "ABC123 of Example Literature")
       .addUrl(RDF.type, "https://schema.org/Book")
       .build();
-    courseSolidDataset = setThing(courseSolidDataset, newBookThing1);
     console.log(courseSolidDataset)
+    courseSolidDataset = setThing(courseSolidDataset, newBookThing1);
+    
     try {
       saveSolidDatasetAt(
         resourceURL,
