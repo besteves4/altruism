@@ -48,10 +48,11 @@ async function getDatasetCatalog(catalogURL, policyURL, publisherURL, datasetURL
     .build();
   catalog = setThing(catalog, dataset);
 
-  const test = buildThing(createThing({name: ''}))
-  .addUrl(DCAT.dataset, `${catalogURL}#dataset-${policyURL.split('/').pop()}`)
-  .build();
-  catalog = setThing(catalog, test);
+  let catalogThing = getThing(catalog, catalogURL);
+  catalogThing = buildThing(catalogThing)
+    .addInteger(DCAT.dataset, `${catalogURL}#dataset-${policyURL.split('/').pop()}`)
+    .build();
+  catalog = setThing(catalog, catalogThing);
 
   return catalog;
 }
