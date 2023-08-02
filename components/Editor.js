@@ -86,6 +86,7 @@ export function Editor() {
   const [policyStorage, setPolicyStorage] = useState("policy-x");
 
   const [display, setDisplay] = useState(false);
+  const [displayBtn, setDisplayBtn] = useState(false);
   const [displayResource, setDisplayResource] = useState("");
   const [displayData, setDisplayData] = useState("");
   const [displayPolicy, setDisplayPolicy] = useState("");
@@ -133,7 +134,7 @@ export function Editor() {
 
         const filenameContainer = `${policiesContainer}${filename}`;
         const filenameSave = new URL(filenameContainer, podRoot);
-        console.log(filenameSave)
+        
         getPolicyFilenames(podPoliciesContainer).then((policyList) => {
           if (policyList.includes(filenameSave.href)) {
             alert("There is already a policy with that name, choose another");
@@ -148,6 +149,7 @@ export function Editor() {
               setDisplayData(chosenData);
               setDisplayPurpose(chosenPurpose);
               setDisplay(true);
+              setDisplayBtn(true);
             } catch (error) {
               console.log(error);
             }
@@ -265,9 +267,15 @@ export function Editor() {
             <Button variant="small" value="permission" onClick={generatePolicy}>
               Generate & Store in the Pod
             </Button>
-            <Button variant="small" value="permission" onClick={shareWithSoDACompany}>
-              Send to Data Altruism Organisation
-            </Button>
+            <br></br>
+            <br></br>
+            {
+              displayBtn && (
+                <Button variant="small" value="permission" onClick={shareWithSoDACompany}>
+                  Send to Data Altruism Organisation
+                </Button>
+              )
+            }
           </div>
         </div>
       </div>
