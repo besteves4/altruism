@@ -20,7 +20,7 @@ import {
   getSolidDataset,
   getContainedResourceUrlAll,
 } from "@inrupt/solid-client";
-import { RDF, ODRL } from "@inrupt/vocab-common-rdf";
+import { RDF, ODRL, DCAT, DCTERMS } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 
 async function getPolicyFilenames(policiesContainer) {
@@ -32,18 +32,20 @@ async function getPolicyFilenames(policiesContainer) {
   return policyList;
 }
 
-async function getDatasetCatalog(resourceURL) {
-  let courseSolidDataset = await getSolidDataset(resourceURL, {
+async function getDatasetCatalog(catalogURL, policyURL, publisherURL, datasetURL) {
+  let catalog = await getSolidDataset(catalogURL, {
     fetch: fetch,
   });
-
-  const newBookThing1 = buildThing(createThing({ name: "book1" }))
-    .addStringNoLocale(ODRL.target, "ABC123 of Example Literature")
-    .addUrl(RDF.type, "https://schema.org/Book")
+  const dataset = buildThing(createThing({ name: "dataset1" }))
+    .addUrl(RDF.type, DCAT.Dataset)
+    .addUrl(ODRL.hasPolicy, policyURL)
+    .addUrl(DCTERMS.publisher, publisherURL)
+    .addUrl("https://w3id.org/dpv#hasLocation", datasetURL)
+    .addStringNoLocale(DCTERMS.description, "Dataset")
     .build();
-  console.log(courseSolidDataset);
-  courseSolidDataset = setThing(courseSolidDataset, newBookThing1);
-  return courseSolidDataset;
+  console.log(catalog);
+  courseSolidDataset = setThing(catalog, dataset);
+  return catalog;
 }
 
 const altruisticPurpose = [
@@ -146,18 +148,24 @@ export function Editor() {
   };
 
   const shareWithSoDACompany = () => { 
-    const resourceURL = "https://solidweb.me/soda/catalogs/catalog1";
+    const catalogURL = "https://solidweb.me/soda/catalogs/catalog1";
     
-    getDatasetCatalog(resourceURL).then((catalog) => {
-      try {
-        saveSolidDatasetAt(
-          resourceURL,
-          catalog,
-          { fetch: fetch }
-        );
-      } catch (error) {
-        console.log(error);
-      }
+    getPodUrlAll(session.info.webId).then((response) => {
+
+      const podRoot = response[0];
+      const policyURL = `${podRoot}altruism/${policyStorage}`;
+
+      getDatasetCatalog(catalogURL, policyURL, session.info.webId, dataStorage).then((catalog) => {
+        try {
+          saveSolidDatasetAt(
+            catalogURL,
+            catalog,
+            { fetch: fetch }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      })
     })
   };
 
