@@ -37,7 +37,7 @@ async function getDatasetCatalog(catalogURL, policyURL, publisherURL, datasetURL
     fetch: fetch,
   });
 
-  const dataset = buildThing(createThing({ name: `dataset-${policyURL}` }))
+  const dataset = buildThing(createThing({ name: `dataset-${policyURL.split('/').pop()}` }))
     .addUrl(RDF.type, DCAT.Dataset)
     .addUrl(ODRL.hasPolicy, policyURL)
     .addUrl(DCTERMS.publisher, publisherURL)
