@@ -133,7 +133,7 @@ export function Editor() {
 
         const filenameContainer = `${policiesContainer}${filename}`;
         const filenameSave = new URL(filenameContainer, podRoot);
-
+        console.log(filenameSave)
         getPolicyFilenames(podPoliciesContainer).then((policyList) => {
           if (policyList.includes(filenameSave)) {
             alert("There is already a policy with that name, choose another");
