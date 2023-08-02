@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import {
   createSolidDataset,
   createThing,
+  getThing,
   setThing,
   addUrl,
   addStringNoLocale,
