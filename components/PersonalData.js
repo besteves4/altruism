@@ -15,18 +15,27 @@ import {
   getSolidDataset,
   getContainedResourceUrlAll,
   getThing,
+  getThingAll,
   getUrl
 } from "@inrupt/solid-client";
 import { ODRL } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 
-async function getPolicies(policiesContainer) {
-  const myDataset = await getSolidDataset(policiesContainer.href, {
+async function getPolicies(catalogURL) {
+  const myDataset = await getSolidDataset(catalogURL, {
     fetch: fetch,
   });
 
   let datasets = [];
-  const policyList = getContainedResourceUrlAll(myDataset);
+  const datasetList = getThingAll(myDataset);
+  for(var d = 0; d < datasetList.length; d++){
+    console.log(datasetList[d])
+    const dataType = getUrl(datasetList[d], "https://w3id.org/dpv#hasPersonalData");
+    const purpose = getUrl(datasetList[d], "https://w3id.org/dpv#hasPurpose");
+    datasets[p] = [dataType.split("#")[1], purpose.split("#")[1]];
+  }
+
+  /* const policyList = getContainedResourceUrlAll(myDataset); 
   for (var p = 0; p < policyList.length; p++) {
     const policy = await getSolidDataset(policyList[p], {
       fetch: fetch,
@@ -39,9 +48,8 @@ async function getPolicies(policiesContainer) {
     const purpose = getUrl(purposeConstraint, ODRL.rightOperand);
 
     datasets[p] = [dataType.split("#")[1], purpose.split("#")[1]];
-  }
-
-  // console.log(datasets);
+  } */
+  console.log(datasets)
   return datasets;
 }
 
@@ -58,8 +66,9 @@ export function PersonalData() {
       const podRoot = response[0];
       const policiesContainer = "altruism/";
       const podPoliciesContainer = new URL(policiesContainer, podRoot);
+      const catalogURL = "https://solidweb.me/soda/catalogs/catalog1";
 
-      getPolicies(podPoliciesContainer).then((datasets) => {
+      getPolicies(catalogURL).then((datasets) => {
 
         setThisState(datasets)
         setDisplay(true);
