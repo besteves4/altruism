@@ -44,12 +44,14 @@ async function getPolicies(catalogURL) {
   return datasets;
 }
 
-async function sendRequestToInbox(catalogURL, target) {
+async function sendRequestToInbox(catalogURL, target, requester) {
   const myDataset = await getSolidDataset(catalogURL, {
     fetch: fetch,
   });
   const dataset = getThing(myDataset, `${catalogURL}#${target}`);
   const publisherWebID = getUrl(dataset, DCTERMS.publisher);
+  const location = getUrl(dataset, "https://w3id.org/dpv#hasLocation");
+  const purpose = getUrl(dataset, "https://w3id.org/dpv#hasPurpose");
 
   const publisherWebIDDataset = await getSolidDataset(publisherWebID, {
     fetch: fetch,
@@ -57,13 +59,13 @@ async function sendRequestToInbox(catalogURL, target) {
   
   const publisherDataset = getThing(publisherWebIDDataset, publisherWebID);
   const publisherInbox = getUrl(publisherDataset, "http://www.w3.org/ns/ldp#inbox");
-  console.log(publisherInbox);
+  
   let inboxMessage = createSolidDataset();
   const inboxThing = buildThing(createThing({ name: target }))
-    .addStringNoLocale(DCTERMS.description, "Your dataset is being requested by XX for the purpose of YY")
+    .addStringNoLocale(DCTERMS.description, `Your dataset at ${location} is being requested by ${requester} for the purpose of ${purpose}`)
     .build();
   inboxMessage = setThing(inboxMessage, inboxThing);
-  console.log(inboxMessage);
+  
   return [publisherInbox, inboxMessage];
 }
 
@@ -86,7 +88,7 @@ export function PersonalData() {
   const requestAccess = (target) => {
     const catalogURL = "https://solidweb.me/soda/catalogs/catalog1";
     
-    sendRequestToInbox(catalogURL, target).then((result) => {
+    sendRequestToInbox(catalogURL, target, session.info.webId).then((result) => {
       try {
         saveSolidDatasetInContainer(result[0], result[1], { 
           fetch: fetch 
