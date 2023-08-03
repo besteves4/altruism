@@ -21,7 +21,7 @@ example to change our app to use port 4007 instead:
 ```json
 {
   "scripts": {
-    "dev": "next dev -p 3001",
+    "dev": "next dev -p 4007",
     ...
   },
   ...
