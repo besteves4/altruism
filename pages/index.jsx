@@ -66,6 +66,7 @@ export default function Home() {
                 <TabList
                   onChange={handleChange}
                   aria-label="lab API tabs example"
+                  centered
                 >
                   <Tab label="Policy Editor" value="1" />
                   <Tab label="Datasets" value="2" />
