@@ -71,6 +71,9 @@ const altruisticPurpose = [
 const dataTypes = [
   { value: "Location", label: "Location" },
   { value: "Health", label: "Health" },
+  { value: "Age", label: "Age" },
+  { value: "EducationQualification", label: "Education Qualification" },
+  { value: "VehicleUsage", label: "Vehicle Usage" },
 ];
 
 export function Editor() {
