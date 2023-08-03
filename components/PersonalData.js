@@ -54,17 +54,17 @@ async function sendRequestToInbox(catalogURL, target) {
   const publisherWebIDDataset = await getSolidDataset(publisherWebID, {
     fetch: fetch,
   });
-  console.log(publisherWebID);
+  
   const publisherDataset = getThing(publisherWebIDDataset, publisherWebID);
   const publisherInbox = getUrl(publisherDataset, "http://www.w3.org/ns/ldp#inbox");
-
+  console.log(publisherInbox);
   let inboxMessage = createSolidDataset();
   const inboxThing = buildThing(createThing({ name: target }))
     .addStringNoLocale(DCTERMS.description, "Your dataset is being requested by XX for the purpose of YY")
     .build();
   inboxMessage = setThing(inboxMessage, inboxThing);
-
-  return publisherInbox, inboxMessage;
+  console.log(inboxMessage);
+  return [publisherInbox, inboxMessage];
 }
 
 export function PersonalData() {
@@ -86,11 +86,9 @@ export function PersonalData() {
   const requestAccess = (target) => {
     const catalogURL = "https://solidweb.me/soda/catalogs/catalog1";
     
-    sendRequestToInbox(catalogURL, target).then((inbox, message) => {
-      console.log(inbox);
-      console.log(message);
+    sendRequestToInbox(catalogURL, target).then((result) => {
       try {
-        saveSolidDatasetInContainer(inbox, message, { 
+        saveSolidDatasetInContainer(result[0], result[1], { 
           fetch: fetch 
         });
       } catch (error) {
