@@ -30,7 +30,7 @@ async function getPolicies(catalogURL) {
   const datasetList = getThingAll(myDataset);
   for(var d = 0; d < datasetList.length; d++){
     console.log(datasetList[d])
-    if(datasetList.url.includes('#')){
+    if(datasetList[d].url.includes('#')){
       const dataType = getUrl(datasetList[d], "https://w3id.org/dpv#hasPersonalData");
       const purpose = getUrl(datasetList[d], "https://w3id.org/dpv#hasPurpose");
       datasets[d] = [dataType.split("#")[1], purpose.split("#")[1]];
