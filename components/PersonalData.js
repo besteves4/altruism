@@ -93,7 +93,9 @@ export function PersonalData() {
         saveSolidDatasetInContainer(result[0], result[1], { 
           fetch: fetch 
         });
+        alert("Request sent to the dataset's publisher");
       } catch (error) {
+        alert("Error sending the request");
         console.log(error);
       }
     })
