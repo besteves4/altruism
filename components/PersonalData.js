@@ -11,7 +11,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 import {
-  getPodUrlAll,
   getSolidDataset,
   getThingAll,
   getUrl
@@ -26,7 +25,6 @@ async function getPolicies(catalogURL) {
   let datasets = [];
   const datasetList = getThingAll(myDataset);
   for(var d = 0; d < datasetList.length; d++){
-    // console.log(datasetList[d])
     if(datasetList[d].url.includes('#')){
       const dataType = getUrl(datasetList[d], "https://w3id.org/dpv#hasPersonalData");
       const purpose = getUrl(datasetList[d], "https://w3id.org/dpv#hasPurpose");
@@ -35,6 +33,21 @@ async function getPolicies(catalogURL) {
   }
 
   return datasets;
+}
+
+async function sendRequestToInbox(catalogURL) {
+  const myDataset = await getSolidDataset(catalogURL, {
+    fetch: fetch,
+  });
+
+  let datasets = [];
+  const datasetList = getThingAll(myDataset);
+  for(var d = 0; d < datasetList.length; d++){
+    if(datasetList[d].url.includes('#')){
+      const location = getUrl(datasetList[d], "https://w3id.org/dpv#hasLocation");
+      datasets[d] = [dataType.split("#")[1], purpose.split("#")[1]];
+    }
+  }
 }
 
 export function PersonalData() {
@@ -52,6 +65,13 @@ export function PersonalData() {
     })
 
   };
+
+  const requestAccess = (target) => {
+    const catalogURL = "https://solidweb.me/soda/catalogs/catalog1";
+    console.log(target)
+    // sendRequestToInbox(catalogURL).then((result) => {})
+
+  }
 
   if (sessionRequestInProgress) {
     return null;
@@ -79,7 +99,7 @@ export function PersonalData() {
                         </Typography> 
                       </CardContent>
                       <CardActions>
-                        <Button size="small">Ask access to the dataset</Button>
+                        <Button size="small" value={value[0]} onClick={e => requestAccess(e.target.value)}>Request access</Button>
                       </CardActions>
                     </Card>
                   </Grid>
