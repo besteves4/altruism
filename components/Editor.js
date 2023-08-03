@@ -174,6 +174,7 @@ export function Editor() {
             catalog,
             { fetch: fetch }
           );
+          alert("Availability of dataset sent to data altruism organisation");
         } catch (error) {
           console.log(error);
         }
