@@ -11,11 +11,20 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 import {
+  createSolidDataset,
   getSolidDataset,
+  saveSolidDatasetInContainer,
+  buildThing,
+  createThing,
+  getThing,
   getThingAll,
+  setThing,
+  addStringNoLocale,
   getUrl
 } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
+
+import { DCTERMS } from "@inrupt/vocab-common-rdf";
 
 async function getPolicies(catalogURL) {
   const myDataset = await getSolidDataset(catalogURL, {
@@ -39,9 +48,23 @@ async function sendRequestToInbox(catalogURL, target) {
   const myDataset = await getSolidDataset(catalogURL, {
     fetch: fetch,
   });
+  const dataset = getThing(myDataset, `${catalogURL}#${target}`);
+  const publisherWebID = getUrl(dataset, DCTERMS.publisher);
 
-  const datasetList = getThing(myDataset, `${catalogURL}#${target}`);
-  const location = getUrl(datasetList[d], "https://w3id.org/dpv#hasLocation");
+  const publisherWebIDDataset = await getSolidDataset(publisherWebID, {
+    fetch: fetch,
+  });
+  console.log(publisherWebID);
+  const publisherDataset = getThing(publisherWebIDDataset, publisherWebID);
+  const publisherInbox = getUrl(publisherDataset, "http://www.w3.org/ns/ldp#inbox");
+
+  let inboxMessage = createSolidDataset();
+  const inboxThing = buildThing(createThing({ name: target }))
+    .addStringNoLocale(DCTERMS.description, "Your dataset is being requested by XX for the purpose of YY")
+    .build();
+  inboxMessage = setThing(inboxMessage, inboxThing);
+
+  return publisherInbox, inboxMessage;
 }
 
 export function PersonalData() {
@@ -62,9 +85,18 @@ export function PersonalData() {
 
   const requestAccess = (target) => {
     const catalogURL = "https://solidweb.me/soda/catalogs/catalog1";
-    console.log(target)
-    // sendRequestToInbox(catalogURL, target).then((result) => {})
-
+    
+    sendRequestToInbox(catalogURL, target).then((inbox, message) => {
+      console.log(inbox);
+      console.log(message);
+      try {
+        saveSolidDatasetInContainer(inbox, message, { 
+          fetch: fetch 
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    })
   }
 
   if (sessionRequestInProgress) {
