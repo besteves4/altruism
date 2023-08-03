@@ -32,7 +32,7 @@ async function getPolicies(catalogURL) {
     console.log(datasetList[d])
     const dataType = getUrl(datasetList[d], "https://w3id.org/dpv#hasPersonalData");
     const purpose = getUrl(datasetList[d], "https://w3id.org/dpv#hasPurpose");
-    datasets[p] = [dataType.split("#")[1], purpose.split("#")[1]];
+    datasets[d] = [dataType.split("#")[1], purpose.split("#")[1]];
   }
 
   /* const policyList = getContainedResourceUrlAll(myDataset); 
