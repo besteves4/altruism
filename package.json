@@ -20,7 +20,7 @@
     "@emotion/styled": "^11.9.3",
     "@inrupt/solid-client": "^1.21.0",
     "@inrupt/solid-client-authn-browser": "^1.11.7",
-    "@inrupt/solid-ui-react": "^2.8.0",
+    "@inrupt/solid-ui-react": "^2.9.0",
     "@inrupt/vocab-common-rdf": "^1.0.5",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.87",
